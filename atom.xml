@@ -2,11 +2,48 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xxiaol.github.io</id>
     <title>在路上</title>
-    <updated>2020-05-27T11:34:53.906Z</updated>
+    <updated>2020-05-28T14:28:51.675Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xxiaol.github.io"/>
     <link rel="self" href="https://xxiaol.github.io/atom.xml"/>
     <logo>https://xxiaol.github.io/images/avatar.png</logo>
     <icon>https://xxiaol.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 在路上</rights>
+    <entry>
+        <title type="html"><![CDATA[阿里云Centos 6.8安装ffmpeg扩展的步骤详解]]></title>
+        <id>https://xxiaol.github.io/post/ffmpeg/</id>
+        <link href="https://xxiaol.github.io/post/ffmpeg/">
+        </link>
+        <updated>2020-05-28T14:24:15.000Z</updated>
+        <content type="html"><![CDATA[<p>本文主要是用于安装h5ai需要安装ffmpeg的问题，安装环境阿里云centos6.8。<br>
+安装步骤：<br>
+1.安装必须的环境yasm</p>
+<p>wget http://www.tortall.net/projects/yasm/releases/yasm-0.7.0.tar.gz<br>
+tar zxvf yasm-0.7.0.tar.gz<br>
+cd yasm-0.7.0<br>
+./configure<br>
+make &amp;&amp; make install<br>
+2.安装ffmpeg</p>
+<p>svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg<br>
+cd ffmpeg<br>
+./configure --enable-shared<br>
+make<br>
+make install<br>
+没有安装svn的话，自己yum安装一下</p>
+<p>到这里已经安装ffmpeg完毕，如果还要安装php扩展的话，看下面</p>
+<p>安装ffmpeg-php</p>
+<p>wget https://svwh.dl.sourceforge.net/project/ffmpeg-php/ffmpeg-php/0.6.0/ffmpeg-php-0.6.0.tbz2<br>
+tar jxvf ffmpeg-php-0.6.0.tbz2<br>
+cd ffmpeg-php-0.6.0<br>
+/usr/local/php/bin/phpize<br>
+./configure --with-php-config=/usr/local/php/bin/php-config<br>
+排错</p>
+<p>vi ffmpeg_frame.c<br>
+:%s/PIX_FMT_RGBA32/PIX_FMT_RGB32 #替换PIX_FMT_RGBA32为/PIX_FMT_RGB32<br>
+make &amp;&amp;make install<br>
+vi /usr/local/php/etc/php.ini<br>
+加入: extension=ffmpeg.so<br>
+service httpd/nginx restart #重启apache/nginx生效</p>
+]]></content>
+    </entry>
 </feed>
